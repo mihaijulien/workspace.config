@@ -1,0 +1,29 @@
+name: "homelab"
+
+services:
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Bucharest
+      - ADVERTISE_IP=${ADVERTISE_IP}
+    network_mode: host
+    ports:
+      - 32400:32400
+    volumes:
+      - /home/matrix/services/plex/config:/config
+      - /media/movies:/media/movies
+      - /media/tv-shows:/media/tv-shows
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/matrix/services/portainer/data:/data
+    environment:
+      - TZ=Europe/Bucharest
+    restart: unless-stopped
