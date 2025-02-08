@@ -10,11 +10,30 @@ services:
       - ADVERTISE_IP=${ADVERTISE_IP}
     network_mode: host
     ports:
-      - 32400:32400
+      - 32400:32400 # http://<host>:32400
     volumes:
       - /home/matrix/services/plex/config:/config
-      - /media/movies:/media/movies
-      - /media/tv-shows:/media/tv-shows
+      - /home/matrix/plex/movies:/media/movies
+      - /home/matrix/plex/tv-shows:/media/tv-shows
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Bucharest
+      - WEBUI_PORT=8080 # http://<host>:8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - /etc/qbittorrent/appdata:/config
+      - /home/matrix/downloads:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
 
   portainer:
     image: portainer/portainer-ce
@@ -27,3 +46,18 @@ services:
     environment:
       - TZ=Europe/Bucharest
     restart: unless-stopped
+
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Bucharest
+    volumes:
+      - /etc/nextcloud/config:/config
+      - /etc/nextcloud/data:/data
+    ports:
+      - 443:443  # https://<host>:443
+    restart: unless-stopped
+
