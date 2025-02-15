@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/docker.nix
     ];
 
   # Bootloader.
@@ -123,9 +124,6 @@
       # system utilities
       wget
       curl
-
-      # Other
-      docker
     ];
   };
 
@@ -137,8 +135,6 @@
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w"
   ];
-
-  virtualisation.docker.enable = true;
 
 
   # List packages installed in system profile. To search, run:
