@@ -11,6 +11,7 @@
       ./modules/docker.nix
       ./modules/yandex.nix
       ./modules/deluge.nix
+      ./modules/libreoffice.nix
     ];
 
   # Bootloader.
