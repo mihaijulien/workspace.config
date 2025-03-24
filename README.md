@@ -32,4 +32,4 @@ killall Finder;
 
 Useful link:
 
-(https://eugeneyan.com/writing/mac-setup/)[https://eugeneyan.com/writing/mac-setup/]
+[https://eugeneyan.com/writing/mac-setup/](https://eugeneyan.com/writing/mac-setup/)
